@@ -5,22 +5,28 @@ const API = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 
-// ==============================================================
-// Interceptor: Menambahkan token ke setiap request secara otomatis
-// ==============================================================
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");
+// Buat Interceptor Permintaan (Request Interceptor)
+// Fungsi ini akan berjalan SEBELUM setiap permintaan dikirim.
+API.interceptors.request.use(
+  (config) => {
+    // Ambil data pengguna dari localStorage
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-  if (token) {
-    // Pastikan kita hanya mengirim jika tokennya valid
-    req.headers.Authorization = `Bearer ${token}`;
+    // Jika data pengguna dan token ada...
+    if (userInfo && userInfo.token) {
+      // ...tambahkan header 'Authorization' ke permintaan.
+      // Format 'Bearer <token>' adalah standar umum.
+      config.headers['Authorization'] = `Bearer ${userInfo.token}`;
+    }
+
+    // Kembalikan konfigurasi yang sudah dimodifikasi agar permintaan bisa dilanjutkan.
+    return config;
+  },
+  (error) => {
+    // Lakukan sesuatu jika terjadi error pada konfigurasi permintaan
+    return Promise.reject(error);
   }
-
-  // Menampilkan header yang akan dikirim untuk diagnosis
-  // console.log("Mengirim request dengan header:", req.headers);
-
-  return req;
-});
+);
 
 // ==============================================================
 // Fungsi login untuk User
@@ -85,7 +91,12 @@ export const getKelasById = (id) => API.get(`/kelas/${id}`);
 export const updateKelas = (id, kelasData) => API.put(`/kelas/${id}`, kelasData);
 export const deleteKelas = (id) => API.delete(`/kelas/${id}`);
 
-
+// ==============================================================
+// Fungsi untuk Manajemen Riwayat oleh Admin
+// ==============================================================
+export const getAllRiwayat = () => API.get('/konsultasi/admin/semua', );
+export const getDetailRiwayat = (id) => API.get(`/konsultasi/${id}`);
+export const deleteRiwayatById = (id) => API.delete(`/konsultasi/${id}`);
 
 // ==============================================================
 export default API;

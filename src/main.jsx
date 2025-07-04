@@ -14,7 +14,6 @@ import LoginPage from "./pages/LoginPage.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import MulaiKonsultasi from "./components/MulaiKonsultasi.jsx";
 import BasisPengetahuan from "./components/BasisPengetahuan.jsx";
-import Riwayat from "./components/Riwayat.jsx";
 import Pengaturan from "./components/Pengaturan.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import KategoriPage from "./pages/kategori/KategoriPage.jsx";
@@ -30,6 +29,8 @@ import KelasPage from "./pages/kelas/kelasPage.jsx";
 import SiswaPage from "./pages/siswa/SiswaPage.jsx";
 import SiswaEditPage from "./pages/siswa/SiswaEditPage.jsx";
 import PrivateRoute from "./components/PrivateRoutes.jsx";
+import RiwayatAdminPage from "./pages/riwayat/RiwayatAdminPage.jsx";
+import RiwayatDetailPage from "./pages/riwayat/RiwayatDetailPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,8 @@ const router = createBrowserRouter([
           { index: true, element: <Dashboard /> },
           { path: "konsultasi", element: <MulaiKonsultasi /> },
           { path: "basis-pengetahuan", element: <BasisPengetahuan /> },
-          { path: "riwayat", element: <Riwayat /> },
+          { path: "riwayat", element: <RiwayatAdminPage /> },
+          { path: "riwayat/:id", element: <RiwayatDetailPage /> },
           { path: "pengaturan", element: <Pengaturan /> },
           { path: "kategori", element: <KategoriPage /> },
           { path: "gejala", element: <GejalaPage /> },
