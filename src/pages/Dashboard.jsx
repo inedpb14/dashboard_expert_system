@@ -1,8 +1,12 @@
 
 import React, { useMemo } from 'react';
-import StatCard from './StatCard';
+import StatCard from '../components/StatCard';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { DollarSign, Zap, Users, Activity } from 'lucide-react';
+import { useAuth } from '../context/AuthContext'; 
+
+ // Get the current theme from AuthContext
+
 
 // Dummy Data
 const statCardsData = [
@@ -38,8 +42,10 @@ const historyData = [
 
 const PIE_COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-const Dashboard = ({ theme }) => {
-   const chartTheme = useMemo(() => ({
+const Dashboard = () => {
+  const theme = useAuth().theme;
+  console.log('Current theme:', theme);
+  const chartTheme = useMemo(() => ({
     tickColor: theme === 'dark' ? '#9ca3af' : '#6b7280',
     gridColor: theme === 'dark' ? '#374151' : '#e5e7eb',
     legendColor: theme === 'dark' ? '#d1d5db' : '#374151',
